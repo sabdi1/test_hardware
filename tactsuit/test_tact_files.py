@@ -1,5 +1,7 @@
 import sys
-sys.path.append("C:/Users/cdcl_/Desktop/Github/tact-python")
+
+# sys.path.append("C:/Users/cdcl_/Desktop/Github/tact-python") # CDCL Laptop
+sys.path.append("C:/Users/sabdi/Documents/GitHub/tact-python") # CDCL Desktop
 
 from time import sleep
 from bhaptics import haptic_player

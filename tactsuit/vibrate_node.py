@@ -1,11 +1,12 @@
 import sys
-sys.path.append("C:/Users/cdcl_/Desktop/Github/tact-python")
+# sys.path.append("C:/Users/cdcl_/Desktop/Github/tact-python") # CDCL Laptop
+sys.path.append("C:/Users/sabdi/Documents/GitHub/tact-python") # CDCL Desktop
 
 from time import sleep
 from bhaptics import haptic_player
 import keyboard
 import msvcrt
-
+from keyboard_io import read_key
 
 def run():
 
@@ -13,31 +14,34 @@ def run():
     sleep(0.4)
 
 
-    interval = 0.5
     durationMillis = 100
+    delay = durationMillis/1000
 
     node = 0
     side = "front"
 
     print("Press Q to quit")
-    while True:
+    done = False
+    while not done:
 
+        if msvcrt.kbhit():
+            key = msvcrt.getwch()
 
-        if msvcrt.kbhit():          
+            if key == "Q":
+                done = True
 
-            key = keyboard.read_key()
-            print('Key: ', key)
+            # if key != "":
+            #     print("You pressed << ",key," >>")
 
-
-            if key == "q" or key == "Q":
+            if key == "Q":
                 break
-            elif key == "up":
+            elif key == "w":
                 node = node - 4
-            elif key == "down":
+            elif key == "s":
                 node = node + 4
-            elif key == "left":
+            elif key == "a":
                 node = node - 1
-            elif key == "right":
+            elif key == "d":
                 node = node + 1
             elif key == "f":
                 side = "front"
@@ -48,13 +52,14 @@ def run():
                 node = 0
             elif node > 19:
                 node = 19
+
+     
+        if side == "front":
+            player.submit_dot("frontFrame", "VestFront", [{"index": node, "intensity": 100}], durationMillis)
+            sleep(delay)
         else:
-            if side == "front":
-                player.submit_dot("frontFrame", "VestFront", [{"index": node, "intensity": 100}], durationMillis)
-                sleep(interval)
-            else:
-                player.submit_dot("backFrame", "VestBack", [{"index": node, "intensity": 100}], durationMillis)
-                sleep(interval)
+            player.submit_dot("backFrame", "VestBack", [{"index": node, "intensity": 100}], durationMillis)
+            sleep(delay)
 
         print('node:', node)
 
