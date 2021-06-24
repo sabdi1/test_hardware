@@ -1,3 +1,11 @@
+#
+#      ____   ____  ___    ____   __________       __   ________   _______    ________   ___  
+#     /   /  /   / /   \  /    \ \   _____  \     /  / /  _____/  /  ___  \  /  _____/  /  /  
+#    /   /  /   / /     \/  /\  \ \  \    |  |   /  / /  /       /  /  /  / /  /       /  /   
+#   /   /__/   / /   /\____/  \  \ \  \___/  |  /  / /  /_____  /  /__/  / /  /_____  /  /____
+#  /__________/ /___/          \__\ \_______/  /__/  \_______/ /________/  \_______/ /_______/ 
+#
+
 import sys
 # sys.path.append("C:/Users/cdcl_/Desktop/Github/tact-python") # CDCL Laptop
 sys.path.append("C:/Users/sabdi/Documents/GitHub/tact-python") # CDCL Desktop
@@ -63,16 +71,6 @@ def run():
 
         print('node:', node)
 
-
-
-
-
-        # print('=================================================')
-        # print('is_playing', player.is_playing())
-        # print('is_playing_key(CenterX)', player.is_playing_key('CenterX'))
-        # print('is_device_connected(Vest)', player.is_device_connected('Vest'))
-        # print('is_device_connected(ForearmL)', player.is_device_connected('ForearmL'))
-        # print('=================================================')
 
 
 if __name__ == "__main__":
