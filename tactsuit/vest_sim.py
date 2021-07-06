@@ -9,6 +9,8 @@
 import pygame
 import time
 import math
+import msvcrt
+
 pygame.init()
 
 class SimRun(object):
@@ -271,28 +273,33 @@ class SimRun(object):
 
     def CycleNodes(self):
         for i in range(40):
-            on_time = 0.25
+            on_time = 0.125
             self.ColorNode(i+1,"F", on_time)
 
 
 if __name__ == '__main__':
+
+    # Demo for vest simulator
     sim_run = SimRun()
     
+    # Function simply cycles through nodes
     sim_run.CycleNodes()
     
-    vibrate_time = 0.5
+    vibrate_time = 0.125
 
     sim_run.ColorNode(0, "F", 1)
 
+    # vibrating columns
     for ii in range(4):
         sim_run.ColorMultiNode([1+ii, 5+ii, 9+ii, 13+ii, 17+ii], ["F", "F", "F", "F", "F"], vibrate_time)
-
     for ii in range(4):
         sim_run.ColorMultiNode([1+ii, 5+ii, 9+ii, 13+ii, 17+ii], ["B", "B", "B", "B", "B"], vibrate_time)
 
+    # vibrating rows
     for ii in range(5):
         sim_run.ColorMultiNode([1+4*ii, 2+4*ii, 3+4*ii, 4+4*ii, 21+4*ii, 22+4*ii, 23+4*ii, 24+4*ii], ["F", "F", "F", "F", "B", "B", "B", "B"], vibrate_time)
 
+    # vibrating expanding/contracting ring front
     sim_run.ColorMultiNode([10,11], ["F","F"], vibrate_time)
     sim_run.ColorMultiNode([5,6,7,8,9,12,13,14,15,16], ["F","F", "F","F", "F","F", "F","F", "F","F" ], vibrate_time)
     sim_run.ColorMultiNode([1,2,3,4,17,18,19,20], ["F","F", "F","F", "F","F", "F","F"], vibrate_time)
@@ -300,9 +307,51 @@ if __name__ == '__main__':
     sim_run.ColorMultiNode([5,6,7,8,9,12,13,14,15,16], ["F","F", "F","F", "F","F", "F","F", "F","F" ], vibrate_time)
     sim_run.ColorMultiNode([10,11], ["F","F"], vibrate_time)
 
+    # vibrating expanding/contracting ring back
     sim_run.ColorMultiNode([10,11], ["B","B"], vibrate_time)
     sim_run.ColorMultiNode([5,6,7,8,9,12,13,14,15,16], ["B","B", "B","B", "B","B", "B","B", "B","B" ], vibrate_time)
     sim_run.ColorMultiNode([1,2,3,4,17,18,19,20], ["B","B", "B","B", "B","B", "B","B"], vibrate_time)
     sim_run.ColorMultiNode([1,2,3,4,17,18,19,20], ["B","B", "B","B", "B","B", "B","B"], vibrate_time)
     sim_run.ColorMultiNode([5,6,7,8,9,12,13,14,15,16], ["B","B", "B","B", "B","B", "B","B", "B","B" ], vibrate_time)
     sim_run.ColorMultiNode([10,11], ["B","B"], vibrate_time)
+
+    # user controlled tactor vibration
+    durationMillis = 100
+    durationSecs = durationMillis/1000
+
+    node = 1
+    side = "front"
+
+    print("Press Q to quit")
+
+    done = False
+
+    while not done:
+
+        if msvcrt.kbhit():
+            key = msvcrt.getwch()
+            
+            if key == "Q":
+                break
+            elif key == "w":
+                node = node - 4
+            elif key == "s":
+                node = node + 4
+            elif key == "a":
+                node = node - 1
+            elif key == "d":
+                node = node + 1
+            elif key == "f":
+                side = "front"
+            elif key == "b":
+                side = "back"
+
+            if node < 0:
+                node = 0
+            elif node > 40:
+                node = 40
+            
+            if key == "Q":
+                done = True
+    
+        print("node = ", node)
