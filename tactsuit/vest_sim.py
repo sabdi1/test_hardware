@@ -319,7 +319,7 @@ if __name__ == '__main__':
     durationMillis = 100
     durationSecs = durationMillis/1000
 
-    node = 1
+    node = 0
     side = "front"
 
     print("Press Q to quit")
@@ -355,3 +355,19 @@ if __name__ == '__main__':
                 done = True
     
         print("node = ", node)
+
+        if side == "front":
+            sim_run.ColorNode(node, "F", durationSecs)
+            time.sleep(durationSecs)
+        else:
+            sim_run.ColorNode(node, "B", durationSecs)
+            time.sleep(durationSecs)
+
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONUP:  # or MOUSEBUTTONDOWN depending on what you want.
+                x_click, y_click = event.pos
+                A = math.pow((750 - x_click),2)
+                B = math.pow((50 - y_click),2)
+                dist = math.sqrt(A + B)
+                if dist < 25:
+                    pygame.quit()
